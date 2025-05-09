@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantilla Interactiva Real Madrid 2024-2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .campo {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      background-image: url('campo_futbol.png');
+      background-size: cover;
+      background-position: center;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .jugador {
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .posicion {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .jugadores-lista {
+      margin: 20px;
+      max-height: 500px;
+      overflow-y: scroll;
+    }
+    .jugador-lista {
+      padding: 10px;
+      background-color: #2980b9;
+      color: white;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Real Madrid 2024-2025 - Formación 4-4-2</h1>
+  
+  <!-- Lista de jugadores -->
+  <div class="jugadores-lista">
+    <div class="jugador-lista" draggable="true" id="jugador1">Thibaut Courtois</div>
+    <div class="jugador-lista" draggable="true" id="jugador2">Andriy Lunin</div>
+    <div class="jugador-lista" draggable="true" id="jugador3">Fran García</div>
+    <div class="jugador-lista" draggable="true" id="jugador4">Ferland Mendy</div>
+    <div class="jugador-lista" draggable="true" id="jugador5">Lucas Vázquez</div>
+    <!-- Agrega el resto de los jugadores aquí -->
+  </div>
+
+  <!-- Campo de Fútbol -->
+  <div class="campo">
+    <!-- Defensores -->
+    <div class="posicion" id="posicion1">Portero</div>
+    <div class="posicion" id="posicion2">Defensor</div>
+    <div class="posicion" id="posicion3">Defensor</div>
+    <div class="posicion" id="posicion4">Mediocampista</div>
+    <div class="posicion" id="posicion5">Mediocampista</div>
+    <div class="posicion" id="posicion6">Delantero</div>
+    <div class="posicion" id="posicion7">Delantero</div>
+  </div>
+
+  <script>
+    // Función para habilitar el arrastre
+    document.querySelectorAll('.jugador-lista').forEach(item => {
+      item.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text', e.target.id);
+      });
+    });
+
+    // Función para permitir el arrastre a las posiciones
+    document.querySelectorAll('.posicion').forEach(item => {
+      item.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+
+      item.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const jugadorId = e.dataTransfer.getData('text');
+        const jugador = document.getElementById(jugadorId);
+        item.innerHTML = jugador.innerHTML;
+        jugador.style.display = 'none';  // Ocultar jugador de la lista
+      });
+    });
+  </script>
+
+</body>
+</html>
